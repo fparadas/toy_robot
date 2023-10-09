@@ -1,21 +1,58 @@
 # ToyRobot
 
-**TODO: Add description**
+Implementing a toy robot in elixir!
 
-## Installation
+## Problem description
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `toy_robot` to your list of dependencies in `mix.exs`:
+The application is a simulation of a toy robot moving on a square tabletop, of dimensions 5 units x 5 units. There are no other obstructions on the table surface. The robot is free to roam around the surface of the table. Any movement that would result in the robot falling from the table is prevented, however further valid movement commands are still allowed.
 
-```elixir
-def deps do
-  [
-    {:toy_robot, "~> 0.1.0"}
-  ]
-end
+The application reads a file using a name passed in the command line, the following commands are valid:
+
+```
+PLACE X,Y,F
+MOVE
+LEFT
+RIGHT
+REPORT
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/toy_robot>.
+- PLACE will put the toy robot on the table in position X,Y and facing NORTH SOUTH, EAST or WEST.
+- The origin (0,0) is the SOUTHWEST most corner.
+- All commands are ignored until a valid PLACE is made.
+- MOVE will move the toy robot one unit forward in the direction it is currently facing.
+- LEFT and RIGHT rotates the robot 90 degrees in the specified direction without changing the position of the robot.
+- REPORT announces the X,Y and F of the robot.
+
+## Running
+
+```sh
+mix escript.build
+toyrobot <filename>
+```
+
+A file holding a set of commands must be passed into the application
+
+
+## Examples
+
+- commands.txt
+```
+PLACE 0,0,NORTH
+MOVE
+RIGHT
+MOVE
+LEFT
+MOVE
+REPORT
+```
+
+```
+$ toyrobot commands.txt
+
+Robot is currently at (1, 2) and it's facing NORTH
+```
+
+## Reference
+
+- The Toy Robot - Ryan Bigg
 
