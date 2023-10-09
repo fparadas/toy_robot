@@ -55,4 +55,3 @@ Robot is currently at (1, 2) and it's facing NORTH
 ## Reference
 
 - The Toy Robot - Ryan Bigg
-
