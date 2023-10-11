@@ -25,6 +25,24 @@ defmodule ToyRobot.Game.PlayerSupervisorTest do
     assert north == 1
   end
 
+  test "turns a robot left and reports where its facing correctly" do
+    robot = %Robot{east: 0, north: 0, facing: :north}
+    {:ok, _player} = PlayerSupervisor.start_child(robot, "Bob")
+    :ok = PlayerSupervisor.turn_left("Bob")
+    %{facing: facing} = PlayerSupervisor.report("Bob")
+
+    assert facing == :west
+  end
+
+  test "turns a robot right and reports where its facing correctly" do
+    robot = %Robot{east: 0, north: 0, facing: :north}
+    {:ok, _player} = PlayerSupervisor.start_child(robot, "Alice")
+    :ok = PlayerSupervisor.turn_right("Alice")
+    %{facing: facing} = PlayerSupervisor.report("Alice")
+
+    assert facing == :east
+  end
+
   test "reports a robot location" do
     robot = %Robot{east: 0, north: 0, facing: :north}
     {:ok, _player} = PlayerSupervisor.start_child(robot, "Davros")

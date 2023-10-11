@@ -35,12 +35,26 @@ defmodule ToyRobot.Game.Player do
     GenServer.cast(player, :move)
   end
 
+  def turn_left(player) do
+    GenServer.cast(player, :turn_left)
+  end
+
+  def turn_right(player) do
+    GenServer.cast(player, :turn_right)
+  end
+
   def handle_call(:report, _from, simulation) do
     {:reply, simulation |> Simulation.report(), simulation}
   end
 
-  def handle_cast(:move, simulation) do
-    {:ok, new_simulation} = simulation |> Simulation.move()
+  def handle_cast(instruction, simulation) do
+    {:ok, new_simulation} =
+      case instruction do
+        :move -> simulation |> Simulation.move()
+        :turn_left -> simulation |> Simulation.turn_left()
+        :turn_right -> simulation |> Simulation.turn_right()
+      end
+
     {:noreply, new_simulation}
   end
 end

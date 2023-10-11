@@ -10,6 +10,14 @@ defmodule ToyRobot.Game.PlayerSupervisor do
     name |> Player.process_name() |> Player.move()
   end
 
+  def turn_left(name) do
+    name |> Player.process_name() |> Player.turn_left()
+  end
+
+  def turn_right(name) do
+    name |> Player.process_name() |> Player.turn_right()
+  end
+
   def report(name) do
     name |> Player.process_name() |> Player.report()
   end
